@@ -10,7 +10,10 @@ const path = require('path');
 
 const RPCS = [process.env.NEAR_RPC].filter(Boolean).concat([
   'https://rpc.testnet.near.org',
-  'https://test.rpc.fastnear.com',
+  'https://near-testnet.drpc.org',
+  'https://testnet-rpc.intea.rs',
+  'https://archival-rpc.testnet.near.org',
+  'https://test.rpc.fastnear.com', // note: does not serve EXPERIMENTAL_tx_status (views only)
 ]);
 const ev = JSON.parse(fs.readFileSync(path.resolve(__dirname, process.argv[2] || 'evidence.json'), 'utf8'));
 const EXPECT_LOG = {
