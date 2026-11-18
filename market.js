@@ -30,6 +30,8 @@ class EscrowMarket {
   hire(buyer, serviceId, orderId) {
     const svc = this.services.get(serviceId);
     if (!svc) throw new Error("unknown service");
+    if (!this.ledger.has(buyer)) throw new Error("unknown buyer"); // guard: unregistered buyer used to produce a NaN balance
+    if (this.escrow.has(orderId)) throw new Error("duplicate order id"); // guard: overwrite would silently strand a live escrow
     const bal = this.ledger.get(buyer);
     if (bal < svc.price) throw new Error("insufficient balance");
     // NEAR-intent style: debit buyer immediately, credit nobody yet
